@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Campus Resource - Health Check</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; }
+        .status { display: flex; align-items: center; gap: 0.5rem; margin: 1rem 0; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .ok { background-color: #22c55e; }
+        .error { background-color: #ef4444; }
+        .checking { background-color: #f59e0b; }
+    </style>
+</head>
+<body>
+    <h1>Campus Resource Health Check</h1>
+    <div id="status">Checking...</div>
+    
+    <script>
+        async function checkHealth() {
+            const statusDiv = document.getElementById('status');
+            
+            try {
+                statusDiv.innerHTML = '<div class="status"><div class="dot checking"></div>Checking client health...</div>';
+                
+                const clientHealth = {
+                    status: 'ok',
+                    timestamp: new Date().toISOString(),
+                    online: navigator.onLine,
+                    userAgent: navigator.userAgent.substring(0, 50) + '...'
+                };
+                
+                statusDiv.innerHTML = `
+                    <div class="status">
+                        <div class="dot ok"></div>
+                        Client: Online
+                    </div>
+                    <div style="margin-left: 1.5rem; font-size: 0.9em; color: #666;">
+                        Last check: ${clientHealth.timestamp}<br>
+                        Network: ${clientHealth.online ? 'Connected' : 'Offline'}<br>
+                        Browser: ${clientHealth.userAgent}
+                    </div>
+                `;
+            } catch (error) {
+                statusDiv.innerHTML = `
+                    <div class="status">
+                        <div class="dot error"></div>
+                        Client: Error - ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        checkHealth();
+        setInterval(checkHealth, 30000);
+    </script>
+</body>
+</html>
