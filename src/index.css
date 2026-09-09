@@ -1,99 +1,304 @@
-/* Reset and Base Styles */
-:root {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color: #213547;
-  background-color: #ffffff;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+    background-color: #f7f4ed;
+    color: #1c1c1c;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ==========================================================================
+   Design System Components & Utility Classes from Canvas
+   ========================================================================== */
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: #f8fafc;
-}
-
-#root {
-  min-height: 100vh;
-}
-
-/* Link Styles */
-a {
-  font-weight: 500;
-  color: #667eea;
-  text-decoration: inherit;
-  transition: color 0.2s;
-}
-
-a:hover {
-  color: #5a67d8;
-  text-decoration: underline;
-}
-
-/* Button Base Styles */
-button {
-  border-radius: 6px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
+/* ---------- Buttons ---------- */
+.btn-inset {
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0.5px 0px 0px inset,
+              rgba(0, 0, 0, 0.2) 0px 0px 0px 0.5px inset,
+              rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: opacity 150ms cubic-bezier(0.2, 0, 0, 1), transform 150ms ease;
+}
+.btn-inset:active {
+  opacity: 0.82;
+  transform: translateY(1px);
 }
 
-button:focus,
-button:focus-visible {
-  outline: 2px solid #667eea;
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #1c1c1c;
+  color: #fcfbf8;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0.5px 0px 0px inset,
+              rgba(0, 0, 0, 0.2) 0px 0px 0px 0.5px inset,
+              rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+  transition: opacity 150ms cubic-bezier(0.2, 0, 0, 1), transform 150ms ease;
+  cursor: pointer;
+}
+.btn-primary:active {
+  opacity: 0.82;
+  transform: translateY(1px);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: transparent;
+  color: #1c1c1c;
+  border: 1px solid rgba(28, 28, 28, 0.4);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: opacity 150ms cubic-bezier(0.2, 0, 0, 1), background-color 150ms ease;
+  cursor: pointer;
+}
+.btn-ghost:hover {
+  background-color: rgba(28, 28, 28, 0.03);
+}
+.btn-ghost:active {
+  opacity: 0.8;
+}
+
+.btn-sm {
+  padding: 4px 12px;
+  font-size: 14px;
+}
+
+/* ---------- Status pills ---------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 9999px;
+  padding: 3px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 500;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.pill .ti {
+  font-size: 13px;
+}
+
+.pill-available {
+  background: #f7f4ed;
+  border-color: rgba(28, 28, 28, 0.4);
+  color: #1c1c1c;
+}
+.pill-available::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #1c1c1c;
+}
+
+.pill-borrowed {
+  background: #1c1c1c;
+  color: #fcfbf8;
+}
+
+.pill-unavailable {
+  background: rgba(28, 28, 28, 0.04);
+  border-color: #eceae4;
+  color: #5f5f5d;
+}
+
+.pill-pending {
+  background: transparent;
+  border-color: rgba(28, 28, 28, 0.4);
+  color: #1c1c1c;
+}
+
+.pill-approved {
+  background: #1c1c1c;
+  color: #fcfbf8;
+}
+
+.pill-rejected {
+  background: rgba(28, 28, 28, 0.05);
+  border-color: #eceae4;
+  color: #5f5f5d;
+}
+
+.pill-returned {
+  background: #f7f4ed;
+  border-color: #eceae4;
+  color: #1c1c1c;
+}
+
+.pill-caption {
+  background: #f7f4ed;
+  border-color: #eceae4;
+  color: #5f5f5d;
+}
+
+/* ---------- Circulation nodes ---------- */
+.cnode {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: #1c1c1c;
+  color: #fcfbf8;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- FAQ disclosure ---------- */
+.faq-a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 240ms cubic-bezier(0.2, 0, 0, 1);
+}
+.faq-a > div {
+  overflow: hidden;
+  min-height: 0;
+}
+.faq-item[data-open="true"] .faq-a {
+  grid-template-rows: 1fr;
+}
+.faq-item[data-open="true"] .icon-plus {
+  display: none;
+}
+.faq-item[data-open="true"] .icon-minus {
+  display: inline-block;
+}
+
+/* ---------- Category shelf (Interactive Accordion) ---------- */
+.shelf {
+  display: flex;
+  gap: 12px;
+  height: 520px;
+}
+.bay {
+  position: relative;
+  flex: 1 1 0%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #eceae4;
+  border-radius: 12px;
+  cursor: pointer;
+  background: #eceae4;
+  padding: 0;
+  text-align: left;
+  transition: flex-grow 280ms cubic-bezier(0.2, 0, 0, 1);
+}
+.bay.bay-narrow {
+  flex-grow: 0.62;
+}
+.bay[data-active="true"] {
+  flex-grow: 3.2;
+}
+.bay img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 240ms cubic-bezier(0.2, 0, 0, 1);
+}
+.bay-chip {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  max-width: calc(100% - 24px);
+  background: #f7f4ed;
+  border: 1px solid #eceae4;
+  border-radius: 8px;
+  padding: 10px 14px;
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.bay-spine {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 16px 0;
+  z-index: 2;
+}
+.bay-spine span {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 14px;
+  line-height: 1;
+  font-weight: 500;
+  color: #1c1c1c;
+  background: rgba(247, 244, 237, 0.94);
+  backdrop-filter: blur(4px);
+  border: 1px solid #eceae4;
+  border-radius: 6px;
+  padding: 12px 7px;
+  white-space: nowrap;
+}
+.bay[data-active="false"] .bay-spine {
+  display: flex;
+}
+.bay[data-active="false"] .bay-chip {
+  display: none;
+}
+.bay:focus-visible {
+  outline: 2px solid rgba(59, 130, 246, 0.5);
   outline-offset: 2px;
 }
 
-/* Input Base Styles */
-input,
-textarea,
-select {
-  font-family: inherit;
-  font-size: 1em;
+@media (max-width: 767px) {
+  .shelf {
+    flex-direction: column;
+    height: auto;
+  }
+  .bay, .bay.bay-narrow, .bay[data-active="true"] {
+    flex: none;
+  }
+  .bay {
+    height: 96px;
+    transition: height 280ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  .bay[data-active="true"] {
+    height: 340px;
+  }
+  .bay-spine {
+    display: none !important;
+  }
+  .bay[data-active="false"] .bay-chip {
+    display: block;
+  }
+  .bay[data-active="false"] .bay-chip p {
+    display: none;
+  }
 }
 
-/* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  line-height: 1.2;
-}
-
-p {
-  margin: 0;
-  line-height: 1.5;
-}
-
-/* Utility Classes */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+@media (prefers-reduced-motion: reduce) {
+  .bay, .bay img, .faq-a, .btn-primary, .btn-ghost {
+    transition: none;
+  }
 }
