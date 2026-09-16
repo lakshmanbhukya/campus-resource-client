@@ -6,6 +6,7 @@ import {
   Navigate,
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
+import LandingPage from "./components/landing/LandingPage";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Dashboard from "./components/dashboard/Dashboard";
@@ -16,7 +17,14 @@ const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    return <div className="loading">Loading...</div>;
+    return (
+      <div className="loading flex min-h-screen items-center justify-center bg-[#f7f4ed] text-[#1c1c1c]">
+        <div className="flex items-center gap-2">
+          <i className="ti ti-loader-2 animate-spin text-[24px]"></i>
+          <span>Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   return isAuthenticated ? children : <Navigate to="/login" />;
@@ -27,7 +35,14 @@ const PublicRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    return <div className="loading">Loading...</div>;
+    return (
+      <div className="loading flex min-h-screen items-center justify-center bg-[#f7f4ed] text-[#1c1c1c]">
+        <div className="flex items-center gap-2">
+          <i className="ti ti-loader-2 animate-spin text-[24px]"></i>
+          <span>Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   return isAuthenticated ? <Navigate to="/dashboard" /> : children;
@@ -39,6 +54,7 @@ function App() {
       <Router>
         <div className="app">
           <Routes>
+            <Route path="/" element={<LandingPage />} />
             <Route
               path="/login"
               element={
@@ -63,7 +79,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route path="/" element={<Navigate to="/dashboard" />} />
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </div>
       </Router>
